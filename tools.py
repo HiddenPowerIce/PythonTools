@@ -1,4 +1,5 @@
 import re
+import hashlib
 
 
 SENSITIVE_WORDS = {
@@ -36,6 +37,16 @@ def has_no_sensitive_word(text):
             return False
     return True
 
+
+"""
+函数说明:     对用户输入进行哈希加密，哈希函数为sha256
+参数说明:     raw_str:需要进行哈希的原文
+返回值说明:   sha256结果密文（字符串形式）
+"""
+def hash_sha256(raw_str):
+    hash_func = hashlib.sha256()
+    hash_func.update(raw_str)
+    return hash_func.hexdigest()
 
 """text = '习近平'
 print(check_user_name(text))
