@@ -45,8 +45,9 @@ def has_no_sensitive_word(text):
 """
 def hash_sha256(raw_str):
     hash_func = hashlib.sha256()
-    hash_func.update(raw_str)
+    hash_func.update(raw_str.encode("utf-8"))
     return hash_func.hexdigest()
+
 
 """text = '习近平'
 print(check_user_name(text))
