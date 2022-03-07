@@ -16,10 +16,7 @@ SENSITIVE_WORDS = {
            检查合规返回True，不合规返回False
 """
 def check_user_name(name):
-    if len(name) > 16:  # 规定用户名不超过16个字符
-        return False
-
-    re_pattern = re.compile(r"\w{3,}")  # 规定用户名至少为3个字符
+    re_pattern = re.compile(r"^\w{3,16}$")  # 规定用户名至少为3个字符
     obj = re.match(re_pattern, name)
 
     if obj is None:
@@ -57,10 +54,7 @@ def hash_sha256(raw_str):
 返回值说明:   合规返回True,否则返回False
 """
 def check_password(passwd):
-    if len(passwd) > 20:  # 必须进行长度限制,正则表达式不能实现长度限制，它只能做到匹配前20项
-        return False
-
-    re_pattern = re.compile(r"(?=.*\d)(?=.*[A-Za-z])(?=.*[%!?#@]).{10,}")
+    re_pattern = re.compile(r"^(?=.*\d)(?=.*[A-Za-z])(?=.*[%!?#@]).{10,20}$")
     obj = re.match(re_pattern, passwd)
 
     if obj is None:
