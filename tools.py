@@ -49,6 +49,17 @@ def hash_sha256(raw_str):
     return hash_func.hexdigest()
 
 
-"""text = '习近平'
-print(check_user_name(text))
-print(has_no_sensitive_word(text))"""
+"""
+函数说明:     检查用户输入的密码是否合规
+            密码设置规则:长度为10-20,必须含有数字、字母以及以下特殊字符:% ! ? # @
+参数说明:     pass:需要进行检测的密码字符串
+返回值说明:   合规返回True,否则返回False
+"""
+def check_password(passwd):
+    if len(passwd) > 20:  # 必须进行长度限制,正则表达式不能实现长度限制，它只能做到匹配前20项
+        return False
+    re_pattern = re.compile(r"(?=.*\d)(?=.*[A-Za-z])(?=.*[%!?#@]).{10,}")
+    obj = re.match(re_pattern, passwd)
+    if obj is None:
+        return False
+    return True
