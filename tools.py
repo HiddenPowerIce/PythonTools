@@ -5,7 +5,8 @@ import hashlib
 SENSITIVE_WORDS = {
     "fuck": 0,
     "bitch": 0,
-    "习近平": 0
+    "习近平": 0,
+    "婊": 0
 }
 
 
@@ -58,8 +59,23 @@ def hash_sha256(raw_str):
 def check_password(passwd):
     if len(passwd) > 20:  # 必须进行长度限制,正则表达式不能实现长度限制，它只能做到匹配前20项
         return False
+
     re_pattern = re.compile(r"(?=.*\d)(?=.*[A-Za-z])(?=.*[%!?#@]).{10,}")
     obj = re.match(re_pattern, passwd)
+
+    if obj is None:
+        return False
+    return True
+
+
+"""
+函数说明:     检查用户输入的电子邮箱地址是否合规
+参数说明:     email:需要进行检测的邮箱地址
+返回值说明:   合规返回True,否则返回False
+"""
+def check_email(email):
+    re_pattern = re.compile(r"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
+    obj = re.match(re_pattern, email)
     if obj is None:
         return False
     return True
